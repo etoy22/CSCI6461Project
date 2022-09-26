@@ -1,38 +1,55 @@
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JToggleButton;
-import java.awt.FlowLayout;
-import javax.swing.JButton;
-import javax.swing.GroupLayout;
+import javax.swing.*;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
-import javax.swing.SwingConstants;
-import javax.swing.JTextField;
-import javax.swing.JLabel;
-import java.awt.Component;
-import java.awt.event.ActionListener;
+import javax.swing.border.EmptyBorder;
+import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class Frame extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField GPR0BitField;
+	private JButton GPR0Button;
 	private JTextField GPR1BitField;
+	private JButton GPR1Button;
 	private JTextField GPR2BitField;
+	private JButton GPR2Button;
 	private JTextField GPR3BitField;
-	private JTextField X1BitField;
-	private JTextField X2BitField;
-	private JTextField X3BitField;
+	private JButton GPR3Button;
+	private JTextField IX1BitField;
+	private JButton IX1Button;
+	private JTextField IX2BitField;
+	private JButton IX2Button;
+	private JTextField IX3BitField;
+	private JButton IX3Button;
 	private JTextField IRBitField;
+	private JButton IRButton;
 	private JTextField PCBitField;
+	private JButton PCButton;
 	private JTextField MARBitField;
+	private JButton MARButton;
 	private JTextField MBRBitField;
+	private JButton MBRButton;
 	private JTextField textField_1;
 	private JTextField MFRBitField;
+	private JButton MFRButton;
 	private JTextField CCBitField;
+	private JButton CCButton;
+	private JPanel panel;
+	private JTextField MARMemory;
+	private JButton IPLButton;
+
+	private JPanel bitPanel;
+
+	private String switchValue;
+	private JToggleButton[] switches;
+	private final Memory memory;
+
+	private final int screenInc = 1280/10;
+	private final int textFieldWidth = 150;
+	private final int textFieldHeight = 23;
+
 
 	/**
 	 * Launch the application.
@@ -55,66 +72,21 @@ public class Frame extends JFrame {
 	 */
 	public Frame() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 800, 500);
+		setBounds(100, 100, 1280, 720);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		setContentPane(contentPane);
-		
+
 		JPanel bitPanel = new JPanel();
 		bitPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
-		
-		JToggleButton bit_15 = new JToggleButton("15");
-		bitPanel.add(bit_15);
-		
-		JToggleButton bit_14 = new JToggleButton("14");
-		bitPanel.add(bit_14);
-		
-		JToggleButton bit_13 = new JToggleButton("13");
-		bitPanel.add(bit_13);
-		
-		JToggleButton bit_12 = new JToggleButton("12");
-		bitPanel.add(bit_12);
-		
-		JToggleButton bit_11 = new JToggleButton("11");
-		bitPanel.add(bit_11);
-		
-		JToggleButton bit_10 = new JToggleButton("10");
-		bitPanel.add(bit_10);
-		
-		JToggleButton bit_9 = new JToggleButton("9");
-		bitPanel.add(bit_9);
-		
-		JToggleButton bit_8 = new JToggleButton("8");
-		bitPanel.add(bit_8);
-		
-		JToggleButton bit_7 = new JToggleButton("7");
-		bitPanel.add(bit_7);
-		
-		JToggleButton bit_6 = new JToggleButton("6");
-		bitPanel.add(bit_6);
-		
-		JToggleButton bit_5 = new JToggleButton("5");
-		bitPanel.add(bit_5);
-		
-		JToggleButton bit_4 = new JToggleButton("4");
-		bitPanel.add(bit_4);
-		
-		JToggleButton bit_3 = new JToggleButton("3");
-		bitPanel.add(bit_3);
-		
-		JToggleButton bit_2 = new JToggleButton("2");
-		bitPanel.add(bit_2);
-		
-		JToggleButton bit_1 = new JToggleButton("1");
-		bitPanel.add(bit_1);
-		
+
 		JPanel labelBitPanel = new JPanel();
 		
 		JPanel commandPanel = new JPanel();
 		commandPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
-		JPanel panel = new JPanel();
+		panel = new JPanel();
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.TRAILING)
@@ -139,305 +111,44 @@ public class Frame extends JFrame {
 					.addContainerGap())
 		);
 		panel.setLayout(null);
-		
-		JLabel GPR0Label = new JLabel("GPR0");
-		GPR0Label.setBounds(167, 11, 48, 23);
-		panel.add(GPR0Label);
-		
-		
-		//Load GPR0 Button
-		JButton GPR0Button = new JButton("Load");
-		GPR0Button.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				//Code Goes here
-			}
-		});
-		
-		
-		GPR0Button.setBounds(225, 11, 62, 23);
-		panel.add(GPR0Button);
-		
-		GPR0BitField = new JTextField();
-		GPR0BitField.setEditable(false);
-		GPR0BitField.setText("0000000000000000");
-		GPR0BitField.setBounds(297, 11, 105, 23);
-		panel.add(GPR0BitField);
-		GPR0BitField.setColumns(10);
-		
-		JLabel GPR1Label = new JLabel("GPR1");
-		GPR1Label.setBounds(167, 45, 48, 23);
-		panel.add(GPR1Label);
-		
-		JButton GPR1Button = new JButton("Load");
-		GPR1Button.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		GPR1Button.setBounds(225, 45, 62, 23);
-		panel.add(GPR1Button);
-		
-		GPR1BitField = new JTextField();
-		GPR1BitField.setText("0000000000000000");
-		GPR1BitField.setEditable(false);
-		GPR1BitField.setColumns(10);
-		GPR1BitField.setBounds(297, 45, 105, 23);
-		panel.add(GPR1BitField);
-		
-		JLabel GPR2Label = new JLabel("GPR2");
-		GPR2Label.setBounds(167, 79, 48, 23);
-		panel.add(GPR2Label);
-		
-		JButton GPR2Button = new JButton("Load");
-		GPR2Button.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		GPR2Button.setBounds(225, 79, 62, 23);
-		panel.add(GPR2Button);
-		
-		GPR2BitField = new JTextField();
-		GPR2BitField.setText("0000000000000000");
-		GPR2BitField.setEditable(false);
-		GPR2BitField.setColumns(10);
-		GPR2BitField.setBounds(297, 79, 105, 23);
-		panel.add(GPR2BitField);
-		
-		JLabel GPR3Label = new JLabel("GPR3");
-		GPR3Label.setBounds(167, 113, 48, 23);
-		panel.add(GPR3Label);
-		
-		JButton GPR3Button = new JButton("Load");
-		GPR3Button.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		GPR3Button.setBounds(225, 113, 62, 23);
-		panel.add(GPR3Button);
-		
-		GPR3BitField = new JTextField();
-		GPR3BitField.setText("0000000000000000");
-		GPR3BitField.setEditable(false);
-		GPR3BitField.setColumns(10);
-		GPR3BitField.setBounds(297, 113, 105, 23);
-		panel.add(GPR3BitField);
-		
-		JLabel X1Label = new JLabel("X1");
-		X1Label.setBounds(412, 11, 48, 23);
-		panel.add(X1Label);
-		
-		JButton X1Button = new JButton("Load");
-		X1Button.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		X1Button.setBounds(470, 11, 62, 23);
-		panel.add(X1Button);
-		
-		X1BitField = new JTextField();
-		X1BitField.setText("0000000000000000");
-		X1BitField.setEditable(false);
-		X1BitField.setColumns(10);
-		X1BitField.setBounds(542, 11, 105, 23);
-		panel.add(X1BitField);
-		
-		JLabel X2Label = new JLabel("X2");
-		X2Label.setBounds(412, 45, 48, 23);
-		panel.add(X2Label);
-		
-		JButton X2Button = new JButton("Load");
-		X2Button.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		X2Button.setBounds(470, 45, 62, 23);
-		panel.add(X2Button);
-		
-		X2BitField = new JTextField();
-		X2BitField.setText("0000000000000000");
-		X2BitField.setEditable(false);
-		X2BitField.setColumns(10);
-		X2BitField.setBounds(542, 45, 105, 23);
-		panel.add(X2BitField);
-		
-		JLabel X3Label = new JLabel("X3");
-		X3Label.setBounds(412, 79, 48, 23);
-		panel.add(X3Label);
-		
-		JButton X3Button = new JButton("Load");
-		X3Button.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		X3Button.setBounds(470, 79, 62, 23);
-		panel.add(X3Button);
-		
-		X3BitField = new JTextField();
-		X3BitField.setText("0000000000000000");
-		X3BitField.setEditable(false);
-		X3BitField.setColumns(10);
-		X3BitField.setBounds(542, 79, 105, 23);
-		panel.add(X3BitField);
-		
-		JLabel IRLabel = new JLabel("IR");
-		IRLabel.setBounds(167, 264, 48, 23);
-		panel.add(IRLabel);
-		
-		JButton IRButton = new JButton("Load");
-		IRButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		IRButton.setBounds(225, 264, 62, 23);
-		panel.add(IRButton);
-		
-		IRBitField = new JTextField();
-		IRBitField.setText("0000000000000000");
-		IRBitField.setEditable(false);
-		IRBitField.setColumns(10);
-		IRBitField.setBounds(297, 264, 105, 23);
-		panel.add(IRBitField);
-		
-		JLabel PCLabel = new JLabel("PC");
-		PCLabel.setBounds(167, 162, 48, 23);
-		panel.add(PCLabel);
-		
-		JButton PCButton = new JButton("Load");
-		PCButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		PCButton.setBounds(225, 162, 62, 23);
-		panel.add(PCButton);
-		
-		PCBitField = new JTextField();
-		PCBitField.setText("000000000000");
-		PCBitField.setEditable(false);
-		PCBitField.setColumns(10);
-		PCBitField.setBounds(297, 162, 82, 23);
-		panel.add(PCBitField);
-		
-		JLabel MARLabel = new JLabel("MAR");
-		MARLabel.setBounds(167, 196, 48, 23);
-		panel.add(MARLabel);
-		
-		JButton MARButton = new JButton("Load");
-		MARButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		MARButton.setBounds(225, 196, 62, 23);
-		panel.add(MARButton);
-		
-		MARBitField = new JTextField();
-		MARBitField.setText("000000000000");
-		MARBitField.setEditable(false);
-		MARBitField.setColumns(10);
-		MARBitField.setBounds(297, 196, 82, 23);
-		panel.add(MARBitField);
-		
-		JLabel MBRLabel = new JLabel("MBR");
-		MBRLabel.setBounds(167, 230, 48, 23);
-		panel.add(MBRLabel);
-		
-		JButton MBRButton = new JButton("Load");
-		MBRButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		MBRButton.setBounds(225, 230, 62, 23);
-		panel.add(MBRButton);
-		
-		MBRBitField = new JTextField();
-		MBRBitField.setText("0000000000000000");
-		MBRBitField.setEditable(false);
-		MBRBitField.setColumns(10);
-		MBRBitField.setBounds(297, 230, 105, 23);
-		panel.add(MBRBitField);
-		
-		JLabel MemoryAtMARLabel = new JLabel("Memory at MAR");
-		MemoryAtMARLabel.setBounds(412, 196, 120, 23);
-		panel.add(MemoryAtMARLabel);
-		
-		textField_1 = new JTextField();
-		textField_1.setText("0000000000000000");
-		textField_1.setEditable(false);
-		textField_1.setColumns(10);
-		textField_1.setBounds(542, 197, 105, 23);
-		panel.add(textField_1);
-		
-		JLabel MFRLabel = new JLabel("MFR");
-		MFRLabel.setBounds(412, 230, 120, 23);
-		panel.add(MFRLabel);
-		
-		MFRBitField = new JTextField();
-		MFRBitField.setText("0000");
-		MFRBitField.setEditable(false);
-		MFRBitField.setColumns(10);
-		MFRBitField.setBounds(542, 230, 32, 23);
-		panel.add(MFRBitField);
-		
-		JLabel CCLabel = new JLabel("CC");
-		CCLabel.setBounds(412, 264, 48, 23);
-		panel.add(CCLabel);
-		
-		JButton CCButton = new JButton("Load");
-		CCButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		CCButton.setBounds(470, 264, 62, 23);
-		panel.add(CCButton);
-		
-		CCBitField = new JTextField();
-		CCBitField.setText("0000");
-		CCBitField.setEditable(false);
-		CCBitField.setColumns(10);
-		CCBitField.setBounds(542, 265, 32, 23);
-		panel.add(CCBitField);
-		
-		//Store Button
-		JButton storeButton = new JButton("Store");
-		storeButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				//Put code here
-			}
-		});
-		
-		
-		
-		commandPanel.add(storeButton);
-		
-		//Load Button
-		JButton loadButton = new JButton("Load");
-		loadButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				//Put code here
-			}
-		});
-		commandPanel.add(loadButton);
-		
-		JToggleButton bit_0 = new JToggleButton("0");
-		bitPanel.add(bit_0);
-		
+
+		this.memory = new Memory();
+
+		this.addGeneralPurposeRegisters();
+		this.addIndexRegisters();
+		this.addIR();
+		this.addPC();
+		this.addMAR();
+		this.addMBR();
+		this.addMFR();
+		this.addIPL();
+		this.addCC();
+
+		this.addStoreAndLoad();
+
+		this.addSwitches(bitPanel);
+		this.resetMachineState();
+
 		JLabel opCodeLabel = new JLabel("Opcode");
 		opCodeLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		opCodeLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-		
+
 		JLabel IXLabel = new JLabel("IX");
 		IXLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 		IXLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		
+
 		JLabel RLabel = new JLabel("R");
 		RLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 		RLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		
+
 		JLabel ILabel = new JLabel("I");
 		ILabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 		ILabel.setHorizontalAlignment(SwingConstants.CENTER);
-		
+
 		JLabel addressLabel = new JLabel("Address");
 		addressLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		addressLabel.setAlignmentX(0.5f);
+
 		GroupLayout gl_labelBitPanel = new GroupLayout(labelBitPanel);
 		gl_labelBitPanel.setHorizontalGroup(
 			gl_labelBitPanel.createParallelGroup(Alignment.LEADING)
@@ -467,5 +178,339 @@ public class Frame extends JFrame {
 		);
 		labelBitPanel.setLayout(gl_labelBitPanel);
 		contentPane.setLayout(gl_contentPane);
+	}
+
+	private void addCC() {
+		JLabel CCLabel = new JLabel("CC");
+		CCBitField = new JTextField(4);
+		CCBitField.setEditable(false);
+		CCButton = new JButton("Load");
+		CCButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+
+		CCLabel.setBounds(   (int) (screenInc*4  ), 264, 48, textFieldHeight);
+		this.CCButton.setBounds(  (int) (screenInc*4.5), 264, 62, textFieldHeight);
+		this.CCBitField.setBounds((int) (screenInc*5  ), 265, textFieldWidth, textFieldHeight);
+		panel.add(CCLabel);
+		panel.add(this.CCButton);
+		panel.add(this.CCBitField);
+	}
+
+	private void resetMachineState() {
+		this.GPR0BitField.setText("0".repeat(16));
+		this.GPR1BitField.setText("0".repeat(16));
+		this.GPR2BitField.setText("0".repeat(16));
+		this.GPR3BitField.setText("0".repeat(16));
+		this.IX1BitField.setText("0".repeat(16));
+		this.IX2BitField.setText("0".repeat(16));
+		this.IX3BitField.setText("0".repeat(16));
+		this.PCBitField.setText("0".repeat(12));
+		this.MARBitField.setText("0".repeat(12));
+		this.setRegisterValue(this.MARBitField, this.memory.getValue(this.MARBitField.getText()));
+		this.MBRBitField.setText("0".repeat(16));
+		this.IRBitField.setText("0".repeat(16));
+		this.MFRBitField.setText("0".repeat(4));
+		this.switchValue = "0".repeat(16);
+		for (JToggleButton jToggleButton : this.switches) {
+			jToggleButton.setSelected(false);
+		}
+	}
+
+	private void addGeneralPurposeRegisters() {
+		JLabel GPR0Label = new JLabel("GPR 0");
+
+		this.GPR0BitField = new JTextField(16);
+		this.GPR0BitField.setName("gpr0");
+		this.GPR0BitField.setEditable(false);
+		this.GPR0Button = new JButton("Load");
+		GPR0Button.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Frame.this.loadSwitchValue(Frame.this.GPR0BitField);
+			}
+		});
+
+		GPR0Label.setBounds(   (int) (screenInc*1), 11, 48, textFieldHeight);
+		GPR0Button.setBounds(  (int) (screenInc*1.5), 11, 62, textFieldHeight);
+		GPR0BitField.setBounds((int) (screenInc*2), 11, textFieldWidth, textFieldHeight);
+		panel.add(GPR0Label);
+		panel.add(GPR0Button);
+		panel.add(GPR0BitField);
+
+		JLabel GPR1Label = new JLabel("GPR 1");
+		this.GPR1BitField = new JTextField(16);
+		this.GPR1BitField.setName("gpr1");
+		this.GPR1BitField.setEditable(false);
+		this.GPR1Button = new JButton("Load");
+		GPR1Button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		GPR1Label.setBounds(   (int) (screenInc*1  ), 45, 48, textFieldHeight);
+		GPR1Button.setBounds(  (int) (screenInc*1.5), 45, 62, textFieldHeight);
+		GPR1BitField.setBounds((int) (screenInc*2  ), 45, textFieldWidth, textFieldHeight);
+		panel.add(GPR1Label);
+		panel.add(GPR1Button);
+		panel.add(GPR1BitField);
+
+		JLabel GPR2Label = new JLabel("GPR2");
+		this.GPR2BitField = new JTextField(16);
+		this.GPR2BitField.setName("gpr2");
+		this.GPR2BitField.setEditable(false);
+		this.GPR2Button = new JButton("Load");
+		GPR2Button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		GPR2Label.setBounds(   (int) (screenInc*1  ), 79, 48, textFieldHeight);
+		GPR2Button.setBounds(  (int) (screenInc*1.5), 79, 62, textFieldHeight);
+		GPR2BitField.setBounds((int) (screenInc*2  ), 79, textFieldWidth, textFieldHeight);
+		panel.add(GPR2Label);
+		panel.add(GPR2Button);
+		panel.add(GPR2BitField);
+
+
+		JLabel GPR3Label = new JLabel("GPR3");
+		this.GPR3BitField = new JTextField(16);
+		this.GPR3BitField.setName("gpr3");
+		this.GPR3BitField.setEditable(false);
+		this.GPR3Button = new JButton("Load");
+		JButton GPR3Button = new JButton("Load");
+		GPR3Button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		GPR3Label.setBounds(   (int) (screenInc*1  ), 113, 48, textFieldHeight);
+		this.GPR3Button.setBounds(  (int) (screenInc*1.5), 113, 62, textFieldHeight);
+		GPR3BitField.setBounds((int) (screenInc*2  ), 113, textFieldWidth, textFieldHeight);
+		panel.add(GPR3Label);
+		panel.add(this.GPR3Button);
+		panel.add(this.GPR3BitField);
+
+	}
+
+	private void addIndexRegisters() {
+		JLabel IX1Label = new JLabel("IX1");
+		JButton X1Button = new JButton("Load");
+
+		X1Button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+
+		this.IX1BitField = new JTextField(16);
+		this.IX1BitField.setName("ix1");
+		this.IX1BitField.setEditable(false);
+		this.IX1Button = new JButton("Load");
+		IX1Label.setBounds(   (int) (screenInc*4  ), 11, 48, textFieldHeight);
+		IX1Button.setBounds(  (int) (screenInc*4.5), 11, 62, textFieldHeight);
+		IX1BitField.setBounds((int) (screenInc*5  ), 11, textFieldWidth, textFieldHeight);
+		panel.add(IX1Label);
+		panel.add(IX1Button);
+		panel.add(IX1BitField);
+
+
+		JLabel IX2Label = new JLabel("IX2");
+		this.IX2BitField = new JTextField(16);
+		this.IX2BitField.setName("ix2");
+		this.IX2BitField.setEditable(false);
+		this.IX2Button = new JButton("Load");
+
+		IX2Button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		IX2Label.setBounds(   (int) (screenInc*4  ), 45, 48, textFieldHeight);
+		IX2Button.setBounds(  (int) (screenInc*4.5), 45, 62, textFieldHeight);
+		IX2BitField.setBounds((int) (screenInc*5  ), 45, textFieldWidth, textFieldHeight);
+		panel.add(IX2Label);
+		panel.add(IX2Button);
+		panel.add(IX2BitField);
+
+		JLabel IX3Label = new JLabel("IX3");
+		this.IX3BitField = new JTextField(16);
+		this.IX3BitField.setName("ix3");
+		this.IX3BitField.setEditable(false);
+		this.IX3Button = new JButton("Load");
+
+		IX3Button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		IX3Label.setBounds(   (int) (screenInc*4  ), 79, 48, textFieldHeight);
+		IX3Button.setBounds(  (int) (screenInc*4.5), 79, 62, textFieldHeight);
+		IX3BitField.setBounds((int) (screenInc*5  ), 79, textFieldWidth, textFieldHeight);
+		panel.add(IX3Label);
+		panel.add(IX3Button);
+		panel.add(IX3BitField);
+
+	}
+
+	private void addIR() {
+		JLabel IRLabel = new JLabel("IR");
+		this.IRBitField = new JTextField(16);
+		this.IRBitField.setName("ir");
+		this.IRBitField.setEditable(false);
+		JButton IRButton = new JButton("Load");
+		IRButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		IRLabel.setBounds(   (int) (screenInc*1  ), 264, 48, textFieldHeight);
+		IRButton.setBounds(  (int) (screenInc*1.5), 264, 62, textFieldHeight);
+		IRBitField.setBounds((int) (screenInc*2  ), 264, textFieldWidth, textFieldHeight);
+		panel.add(IRLabel);
+		panel.add(IRButton);
+		panel.add(IRBitField);
+	}
+
+	private void addPC() {
+		JLabel PCLabel = new JLabel("PC");
+		this.PCBitField = new JTextField(12);
+		this.PCBitField.setName("pc");
+		this.PCBitField.setEditable(false);
+		this.PCButton = new JButton("Load");
+		PCButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		PCLabel.setBounds(   (int) (screenInc*1  ), 162, 48, textFieldHeight);
+		PCButton.setBounds(  (int) (screenInc*1.5), 162, 62, textFieldHeight);
+		PCBitField.setBounds((int) (screenInc*2  ), 162, textFieldWidth, textFieldHeight);
+		panel.add(PCLabel);
+		panel.add(PCButton);
+		panel.add(PCBitField);
+	}
+
+	private void addMAR() {
+		JLabel MARLabel = new JLabel("MAR");
+		this.MARBitField = new JTextField(12);
+		this.MARBitField.setName("mar");
+		this.MARBitField.setEditable(false);
+		this.MARButton = new JButton("Load");
+		JLabel MemoryAtMARLabel = new JLabel("Memory at MAR");
+
+		this.MARMemory = new JTextField(16);
+		this.MARMemory.setEditable(false);
+
+
+		MARButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+
+		MemoryAtMARLabel.setBounds((int) (screenInc*4), 197, 120, textFieldHeight);
+		MARMemory.setBounds((int) (screenInc*5), 197, textFieldWidth, textFieldHeight);
+		panel.add(MemoryAtMARLabel);
+		panel.add(MARMemory);
+
+		MARLabel.setBounds(   (int) (screenInc*1), 196, 48, textFieldHeight);
+		MARButton.setBounds(  (int) (screenInc*1.5), 196, 62, textFieldHeight);
+		MARBitField.setBounds((int) (screenInc*2), 196, textFieldWidth, textFieldHeight);
+		panel.add(MARLabel);
+		panel.add(MARButton);
+		panel.add(MARBitField);
+	}
+
+	private void addMBR() {
+		JLabel MBRLabel = new JLabel("MBR");
+		this.MBRBitField = new JTextField(16);
+		this.MBRBitField.setName("mbr");
+		this.MBRBitField.setEditable(false);
+		this.MBRButton = new JButton("Load");
+
+		MBRButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+
+		MBRLabel.setBounds((int) (screenInc*1), 230, 48, textFieldHeight);
+		MBRButton.setBounds((int) (screenInc*1.5), 230, 62, textFieldHeight);
+		MBRBitField.setBounds((int) (screenInc*2), 230, textFieldWidth, textFieldHeight);
+		panel.add(MBRLabel);
+		panel.add(MBRButton);
+		panel.add(MBRBitField);
+	}
+
+
+
+	private void addMFR() {
+		JLabel MFRLabel = new JLabel("MFR");
+		this.MFRBitField = new JTextField(16);
+		this.MFRBitField.setName("mfr");
+		this.MFRBitField.setEditable(false);
+		MFRLabel.setBounds((int) (screenInc*4), 230, 120, textFieldHeight);
+		MFRBitField.setBounds((int) (screenInc*5), 230, textFieldWidth, textFieldHeight);
+		panel.add(MFRLabel);
+		panel.add(MFRBitField);
+	}
+
+	private void addIPL() {
+		this.IPLButton = new JButton("IPL");
+		this.IPLButton.setBounds(screenInc*2, 300, 120, textFieldHeight*2);
+		panel.add(IPLButton);
+	}
+
+	private void addStoreAndLoad() {
+		//Store Button
+		JButton storeButton = new JButton("Store");
+		storeButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//Put code here
+			}
+		});
+
+		panel.add(storeButton);
+
+		//Load Button
+		JButton loadButton = new JButton("Load");
+		loadButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//Put code here
+			}
+		});
+		panel.add(loadButton);
+	}
+
+	public void setRegisterValue(JTextField jTextField, int n) {
+		if (jTextField.getText().length() <= 0) {
+			System.out.println("Error setting register value: invalid length");
+			return;
+		}
+		String string = Integer.toBinaryString(n);
+		int n2 = jTextField.getText().length() - string.length();
+		String string2 = "0".repeat(n2) + string;
+		jTextField.setText(string2);
+	}
+
+	private void loadSwitchValue(JTextField jTextField) {
+		if (this.switchValue.length() > jTextField.getText().length()) {
+			System.out.println("Warning: switch length is greater than register length. Only setting first " + jTextField.getText().length() + " bits.");
+		}
+		String string = this.switchValue.substring(this.switchValue.length() - jTextField.getText().length());
+		jTextField.setText(string);
+		System.out.println(jTextField.getName() + " is set to: " + string);
+	}
+
+	private void addSwitches(JPanel bitPanel) {
+		this.switchValue = "0".repeat(16);
+		this.switches = new JToggleButton[16];
+		for (int i = 0; i < this.switches.length; ++i) {
+			String string = "" + (this.switches.length - i - 1) + "";
+			final JToggleButton jToggleButton = new JToggleButton(string);
+			jToggleButton.addItemListener(itemEvent -> {
+				int state = itemEvent.getStateChange();
+				int value = Frame.this.switches.length - Integer.parseInt(jToggleButton.getText()) - 1;
+				Frame.this.switchValue = state == 1
+						? Frame.this.switchValue.substring(0, value) + "1" + Frame.this.switchValue.substring(value + 1)
+						: Frame.this.switchValue.substring(0, value) + "0" + Frame.this.switchValue.substring(value + 1);
+			});
+			this.switches[i] = jToggleButton;
+			bitPanel.add(jToggleButton);
+		}
+
+
 	}
 }
