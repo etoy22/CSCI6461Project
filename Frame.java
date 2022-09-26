@@ -116,6 +116,8 @@ public class Frame extends JFrame {
 		
 		
 		
+		
+		
 		JPanel labelBitPanel = new JPanel();
 		
 		JPanel commandPanel = new JPanel();
