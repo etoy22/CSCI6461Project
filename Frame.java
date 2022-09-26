@@ -14,6 +14,8 @@ import javax.swing.JTextField;
 import javax.swing.JLabel;
 import java.awt.Component;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.awt.event.ActionEvent;
 
 public class Frame extends JFrame {
@@ -65,8 +67,9 @@ public class Frame extends JFrame {
 		bitPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
 		JToggleButton bit_15 = new JToggleButton("15");
-		bitPanel.add(bit_15);
 		
+		bitPanel.add(bit_15);
+	
 		JToggleButton bit_14 = new JToggleButton("14");
 		bitPanel.add(bit_14);
 		
@@ -109,6 +112,10 @@ public class Frame extends JFrame {
 		JToggleButton bit_1 = new JToggleButton("1");
 		bitPanel.add(bit_1);
 		
+		
+		
+		
+		
 		JPanel labelBitPanel = new JPanel();
 		
 		JPanel commandPanel = new JPanel();
@@ -150,6 +157,7 @@ public class Frame extends JFrame {
 		GPR0Button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//Code Goes here
+				
 			}
 		});
 		
@@ -399,6 +407,8 @@ public class Frame extends JFrame {
 		JButton storeButton = new JButton("Store");
 		storeButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				textField_1.setText(MBRBitField.getText());
+
 				//Put code here
 			}
 		});
@@ -411,7 +421,11 @@ public class Frame extends JFrame {
 		JButton loadButton = new JButton("Load");
 		loadButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+			MBRBitField.setText(textField_1.getText());
+				
+				
 				//Put code here
+				
 			}
 		});
 		commandPanel.add(loadButton);
@@ -467,5 +481,15 @@ public class Frame extends JFrame {
 		);
 		labelBitPanel.setLayout(gl_labelBitPanel);
 		contentPane.setLayout(gl_contentPane);
+	}
+
+	protected void alert(int i) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void alert(String string) {
+		// TODO Auto-generated method stub
+		
 	}
 }
