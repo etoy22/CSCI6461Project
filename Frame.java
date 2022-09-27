@@ -92,24 +92,29 @@ public class Frame extends JFrame {
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.TRAILING)
 				.addGroup(gl_contentPane.createSequentialGroup()
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
-						.addComponent(panel, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 768, Short.MAX_VALUE)
-						.addComponent(bitPanel, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 768, Short.MAX_VALUE)
-						.addComponent(labelBitPanel, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-						.addComponent(commandPanel, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 768, Short.MAX_VALUE))
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+						.addComponent(commandPanel, GroupLayout.DEFAULT_SIZE, 1246, Short.MAX_VALUE)
+						.addComponent(panel, GroupLayout.DEFAULT_SIZE, 1246, Short.MAX_VALUE)
+						.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
+							.addGap(46)
+							.addComponent(labelBitPanel, GroupLayout.DEFAULT_SIZE, 1246, Short.MAX_VALUE))
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addContainerGap()
+							.addComponent(bitPanel, GroupLayout.PREFERRED_SIZE, 980, GroupLayout.PREFERRED_SIZE)))
 					.addContainerGap())
 		);
 		gl_contentPane.setVerticalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
-					.addComponent(bitPanel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addGap(8)
+					.addComponent(bitPanel, GroupLayout.PREFERRED_SIZE, 59, GroupLayout.PREFERRED_SIZE)
 					.addGap(18)
 					.addComponent(labelBitPanel, GroupLayout.PREFERRED_SIZE, 38, GroupLayout.PREFERRED_SIZE)
-					.addGap(18)
+					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addComponent(commandPanel, GroupLayout.PREFERRED_SIZE, 33, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(panel, GroupLayout.DEFAULT_SIZE, 298, Short.MAX_VALUE)
-					.addContainerGap())
+					.addGap(18)
+					.addComponent(panel, GroupLayout.DEFAULT_SIZE, 418, Short.MAX_VALUE)
+					.addGap(71))
 		);
 		panel.setLayout(null);
 
@@ -154,27 +159,30 @@ public class Frame extends JFrame {
 		gl_labelBitPanel.setHorizontalGroup(
 			gl_labelBitPanel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_labelBitPanel.createSequentialGroup()
-					.addContainerGap()
+					.addGap(84)
 					.addComponent(opCodeLabel, GroupLayout.PREFERRED_SIZE, 303, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(IXLabel, GroupLayout.PREFERRED_SIZE, 74, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(RLabel, GroupLayout.PREFERRED_SIZE, 74, GroupLayout.PREFERRED_SIZE)
-					.addGap(10)
-					.addComponent(ILabel, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
+					.addComponent(IXLabel, GroupLayout.PREFERRED_SIZE, 74, GroupLayout.PREFERRED_SIZE)
 					.addGap(18)
-					.addComponent(addressLabel, GroupLayout.PREFERRED_SIZE, 231, GroupLayout.PREFERRED_SIZE))
+					.addComponent(RLabel, GroupLayout.PREFERRED_SIZE, 74, GroupLayout.PREFERRED_SIZE)
+					.addGap(18)
+					.addComponent(ILabel, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
+					.addGap(27)
+					.addComponent(addressLabel, GroupLayout.PREFERRED_SIZE, 231, GroupLayout.PREFERRED_SIZE)
+					.addGap(333))
 		);
 		gl_labelBitPanel.setVerticalGroup(
 			gl_labelBitPanel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_labelBitPanel.createSequentialGroup()
 					.addGap(11)
 					.addGroup(gl_labelBitPanel.createParallelGroup(Alignment.LEADING)
-						.addComponent(IXLabel)
-						.addComponent(opCodeLabel)
+						.addGroup(gl_labelBitPanel.createParallelGroup(Alignment.BASELINE)
+							.addComponent(IXLabel)
+							.addComponent(opCodeLabel))
 						.addComponent(RLabel)
-						.addComponent(ILabel)
-						.addComponent(addressLabel))
+						.addGroup(gl_labelBitPanel.createParallelGroup(Alignment.BASELINE)
+							.addComponent(ILabel)
+							.addComponent(addressLabel)))
 					.addGap(13))
 		);
 		labelBitPanel.setLayout(gl_labelBitPanel);
@@ -209,7 +217,7 @@ public class Frame extends JFrame {
 		this.IX3BitField.setText("0".repeat(16));
 		this.PCBitField.setText("0".repeat(12));
 		this.MARBitField.setText("0".repeat(12));
-		this.setRegisterValue(this.MARBitField, this.memory.getValue(this.MARBitField.getText()));
+		//this.setRegisterValue(this.MARBitField, this.memory.getValue(this.MARBitField.getText()));
 		this.MBRBitField.setText("0".repeat(16));
 		this.IRBitField.setText("0".repeat(16));
 		this.MFRBitField.setText("0".repeat(4));
@@ -394,11 +402,15 @@ public class Frame extends JFrame {
 		JLabel MemoryAtMARLabel = new JLabel("Memory at MAR");
 
 		this.MARMemory = new JTextField(16);
+		MARMemory.setText("1010");
 		this.MARMemory.setEditable(false);
 
 
 		MARButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				Frame.this.loadSwitchValue(Frame.this.MARBitField);
+
+				
 			}
 		});
 
@@ -424,6 +436,8 @@ public class Frame extends JFrame {
 
 		MBRButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				Frame.this.loadSwitchValue(Frame.this.MBRBitField);
+
 			}
 		});
 
@@ -459,6 +473,10 @@ public class Frame extends JFrame {
 		JButton storeButton = new JButton("Store");
 		storeButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				int Value=Integer.parseInt(MARBitField.getText(),2);
+				int Index=Integer.parseInt(MBRBitField.getText(),2);
+	            memory.insertX(Value, Index);
+
 				//Put code here
 			}
 		});
@@ -469,6 +487,10 @@ public class Frame extends JFrame {
 		JButton loadButton = new JButton("Load");
 		loadButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				int index_marmemory=Integer.parseInt(MBRBitField.getText(),2);
+
+				memory.getValue(index_marmemory);
+				
 				//Put code here
 			}
 		});
