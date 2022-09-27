@@ -41,6 +41,7 @@ public class Frame extends JFrame {
 	private JButton IPLButton;
 
 	private JPanel bitPanel;
+	private	JPanel commandPanel;
 
 	private String switchValue;
 	private JToggleButton[] switches;
@@ -83,7 +84,7 @@ public class Frame extends JFrame {
 
 		JPanel labelBitPanel = new JPanel();
 		
-		JPanel commandPanel = new JPanel();
+		commandPanel = new JPanel();
 		commandPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
 		panel = new JPanel();
@@ -462,7 +463,7 @@ public class Frame extends JFrame {
 			}
 		});
 
-		panel.add(storeButton);
+		commandPanel.add(storeButton);
 
 		//Load Button
 		JButton loadButton = new JButton("Load");
@@ -471,7 +472,14 @@ public class Frame extends JFrame {
 				//Put code here
 			}
 		});
-		panel.add(loadButton);
+		commandPanel.add(loadButton);
+		JButton nextStepButton = new JButton("Next Step");
+		nextStepButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//Put code here
+			}
+		});
+		commandPanel.add(nextStepButton);
 	}
 
 	public void setRegisterValue(JTextField jTextField, int n) {
