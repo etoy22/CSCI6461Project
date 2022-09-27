@@ -473,8 +473,8 @@ public class Frame extends JFrame {
 		JButton storeButton = new JButton("Store");
 		storeButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				int Value=Integer.parseInt(MARBitField.getText(),2);
-				int Index=Integer.parseInt(MBRBitField.getText(),2);
+				int Value=Integer.parseInt(MBRBitField.getText(),2);
+				int Index=Integer.parseInt(MARBitField.getText(),2);
 	            memory.insertX(Value, Index);
 
 				//Put code here
@@ -487,10 +487,21 @@ public class Frame extends JFrame {
 		JButton loadButton = new JButton("Load");
 		loadButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				int index_marmemory=Integer.parseInt(MBRBitField.getText(),2);
+				int index_marmemory=Integer.parseInt(MARBitField.getText(),2);
+				
+				
+				 int n5 = memory.getValue(index_marmemory);
+		            String string = Integer.toBinaryString(n5);
+		            int n6 = MBRBitField.getText().length() - string.length();
+		            String string2 = "0".repeat(n6) + string;
+		            MBRBitField.setText(string2);
+				
+				
+				
+				
+				
 
 				memory.getValue(index_marmemory);
-				
 				//Put code here
 			}
 		});
