@@ -205,6 +205,17 @@ public class Frame extends JFrame {
 		panel.add(CCLabel);
 		panel.add(this.CCButton);
 		panel.add(this.CCBitField);
+		
+		JButton RUN = new JButton("RUN");
+		RUN.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//need to input instruction
+			CPU.instruction("0000000000101110");
+				
+			}
+		});
+		RUN.setBounds(856, 79, 120, 72);
+		panel.add(RUN);
 	}
 
 	private void resetMachineState() {

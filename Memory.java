@@ -2,7 +2,7 @@ import java.util.Arrays;
 
 public class Memory {
 	private int Size = 2048;
-    private int[] memory = new int[this.Size];
+    public int[] memory = new int[this.Size];
     	public  void insertX(int value, int index)
 {
    
