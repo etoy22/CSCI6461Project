@@ -22,9 +22,7 @@ public class Frame extends JFrame {
 	private JTextField MARBitField;
 	private JTextField MBRBitField;
 	private JButton MBRButton;
-	private JTextField textField_1;
 	private JTextField MFRBitField;
-	private JButton MFRButton;
 	private JTextField CCBitField;
 	private JButton IPLButton;
 
@@ -757,6 +755,24 @@ public class Frame extends JFrame {
 		panel.add(nextStepButton);
 		panel.add(resetButton);
 	}
+	private void singleStep() {
+        MARBitField.setText(PCBitField.getText());
+        int data = memory.getValue(Integer.parseInt(PCBitField.getText(), 2));
+        String binString = Integer.toBinaryString(data);
+        binString = binString.length() == MBRBitField.getColumns() ? binString : "0".repeat(MBRBitField.getColumns()-binString.length()) + binString;
+        MBRBitField.setText(binString);
+        IRBitField.setText(MBRBitField.getText());
+        CPU.instruction(IRBitField.getText());
+        PCBitField.setText(Integer.toBinaryString(Integer.parseInt(PCBitField.getText(), 2)+1));
+        refresh();
+    }
+
+	private void refresh() {
+        SwingUtilities.updateComponentTreeUI(this);
+        this.invalidate();
+        this.validate();
+        this.repaint();
+    }
 
 	private void resetMachineState() {
 		/*
