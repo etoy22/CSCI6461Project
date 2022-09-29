@@ -8,40 +8,24 @@ import java.awt.event.ActionListener;
 
 public class Frame extends JFrame {
 
-	private JPanel contentPane;
 	private JTextField GPR0BitField;
-	private JButton GPR0Button;
 	private JTextField GPR1BitField;
-	private JButton GPR1Button;
 	private JTextField GPR2BitField;
-	private JButton GPR2Button;
 	private JTextField GPR3BitField;
-	private JButton GPR3Button;
 	private JTextField IX1BitField;
-	private JButton IX1Button;
 	private JTextField IX2BitField;
-	private JButton IX2Button;
 	private JTextField IX3BitField;
-	private JButton IX3Button;
 	private JTextField IRBitField;
-	private JButton IRButton;
 	private JTextField PCBitField;
-	private JButton PCButton;
 	private JTextField MARBitField;
-	private JButton MARButton;
 	private JTextField MBRBitField;
 	private JButton MBRButton;
 	private JTextField textField_1;
 	private JTextField MFRBitField;
 	private JButton MFRButton;
 	private JTextField CCBitField;
-	private JButton CCButton;
-	private JPanel panel;
-	private JTextField MARMemory;
 	private JButton IPLButton;
 
-	private JPanel bitPanel;
-	private	JPanel commandPanel;
 
 	private String switchValue;
 	private JToggleButton[] switches;
@@ -72,35 +56,28 @@ public class Frame extends JFrame {
 	 * Create the frame.
 	 */
 	public Frame() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1280, 720);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-
-		setContentPane(contentPane);
-
+		/*
+		 * Initalizing the UI elements
+		 */
+		JPanel contentPane = new JPanel();
+		JPanel processingPanel = new JPanel();
+		JPanel commandPanel = new JPanel();
 		JPanel bitPanel = new JPanel();
-		bitPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
-
 		JPanel labelBitPanel = new JPanel();
-		
-		commandPanel = new JPanel();
-		commandPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
-		
-		panel = new JPanel();
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
+
+		/*
+		 * Setup GroupLayout
+		 */
+
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.TRAILING)
 				.addGroup(gl_contentPane.createSequentialGroup()
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
-						.addComponent(commandPanel, GroupLayout.DEFAULT_SIZE, 1246, Short.MAX_VALUE)
-						.addComponent(panel, GroupLayout.DEFAULT_SIZE, 1246, Short.MAX_VALUE)
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addGap(46)
-							.addComponent(labelBitPanel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-						.addGroup(Alignment.LEADING, gl_contentPane.createSequentialGroup()
-							.addContainerGap()
-							.addComponent(bitPanel, GroupLayout.PREFERRED_SIZE, 1042, GroupLayout.PREFERRED_SIZE)))
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+						.addComponent(labelBitPanel, GroupLayout.DEFAULT_SIZE, 1248, Short.MAX_VALUE)
+						.addComponent(bitPanel, GroupLayout.DEFAULT_SIZE, 1248, Short.MAX_VALUE)
+						.addComponent(commandPanel, GroupLayout.DEFAULT_SIZE, 1248, Short.MAX_VALUE)
+						.addComponent(processingPanel, GroupLayout.DEFAULT_SIZE, 1248, Short.MAX_VALUE))
 					.addContainerGap())
 		);
 		gl_contentPane.setVerticalGroup(
@@ -108,54 +85,86 @@ public class Frame extends JFrame {
 				.addGroup(gl_contentPane.createSequentialGroup()
 					.addGap(8)
 					.addComponent(bitPanel, GroupLayout.PREFERRED_SIZE, 59, GroupLayout.PREFERRED_SIZE)
-					.addGap(18)
+					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(labelBitPanel, GroupLayout.PREFERRED_SIZE, 38, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(commandPanel, GroupLayout.PREFERRED_SIZE, 33, GroupLayout.PREFERRED_SIZE)
-					.addGap(18)
-					.addComponent(panel, GroupLayout.DEFAULT_SIZE, 418, Short.MAX_VALUE)
-					.addGap(71))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(processingPanel, GroupLayout.DEFAULT_SIZE, 403, Short.MAX_VALUE)
+					.addGap(116))
 		);
-		panel.setLayout(null);
 
+
+		/*
+		 * Setting up JFrame
+		 */
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 1280, 720);
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+
+		/*
+		 * Panel Layout
+		 */
+		bitPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		commandPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		processingPanel.setLayout(null);
+		setuplabelBitPanel(contentPane);
+
+		contentPane.setLayout(gl_contentPane);
+
+		/*
+		 * Add to JFrame
+		 */
 		this.memory = new Memory();
-
-		this.addGeneralPurposeRegisters();
-		this.addIndexRegisters();
-		this.addIR();
-		this.addPC();
-		this.addMAR();
-		this.addMBR();
-		this.addMFR();
-		this.addIPL();
-		this.addCC();
-
-		this.addStoreAndLoad();
-
+		this.addGeneralPurposeRegisters(processingPanel);
+		this.addIndexRegisters(processingPanel);
+		this.addIR(processingPanel);
+		this.addPC(processingPanel);
+		this.addMAR(processingPanel);
+		this.addMBR(processingPanel);
+		this.addMFR(processingPanel);
+		this.addIPL(processingPanel);
+		this.addCC(processingPanel);
+		this.addRun(processingPanel);
+		this.addStoreAndLoad(commandPanel);
 		this.addSwitches(bitPanel);
-		this.resetMachineState();
+		this.resetMachineState();		
+	}
 
+	private void setuplabelBitPanel(JPanel panel){
+		/*
+		 * Initalizing the UI elements for plabelBitPanel
+		 */
+		GroupLayout gl_labelBitPanel = new GroupLayout(panel);
 		JLabel opCodeLabel = new JLabel("Opcode");
+		JLabel IXLabel = new JLabel("IX");
+		JLabel RLabel = new JLabel("R");
+		JLabel ILabel = new JLabel("I");
+		JLabel addressLabel = new JLabel("Address");
+
+		/* 
+		 * Setting up labels
+		 */
 		opCodeLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		opCodeLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-		JLabel IXLabel = new JLabel("IX");
 		IXLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 		IXLabel.setHorizontalAlignment(SwingConstants.CENTER);
 
-		JLabel RLabel = new JLabel("R");
 		RLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 		RLabel.setHorizontalAlignment(SwingConstants.CENTER);
 
-		JLabel ILabel = new JLabel("I");
 		ILabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 		ILabel.setHorizontalAlignment(SwingConstants.CENTER);
 
-		JLabel addressLabel = new JLabel("Address");
 		addressLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		addressLabel.setAlignmentX(0.5f);
 
-		GroupLayout gl_labelBitPanel = new GroupLayout(labelBitPanel);
+		/*
+		 * Setup GroupLayout
+		*/
 		gl_labelBitPanel.setHorizontalGroup(
 			gl_labelBitPanel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_labelBitPanel.createSequentialGroup()
@@ -185,28 +194,29 @@ public class Frame extends JFrame {
 							.addComponent(RLabel)))
 					.addGap(13))
 		);
-		labelBitPanel.setLayout(gl_labelBitPanel);
-		contentPane.setLayout(gl_contentPane);
+
+		/*
+		 * Set the layout
+		 */
+		panel.setLayout(gl_labelBitPanel);
+
 	}
+	
+	private void addRun(JPanel panel){
+		/*
+		 * Initalizing the UI elements for addRun
+		 */
 
-	private void addCC() {
-		JLabel CCLabel = new JLabel("CC");
-		CCBitField = new JTextField(4);
-		CCBitField.setEditable(false);
-		CCButton = new JButton("Load");
-		CCButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-
-		CCLabel.setBounds(   (int) (screenInc*4  ), 264, 48, textFieldHeight);
-		this.CCButton.setBounds(  (int) (screenInc*4.5), 264, 62, textFieldHeight);
-		this.CCBitField.setBounds((int) (screenInc*5  ), 265, textFieldWidth, textFieldHeight);
-		panel.add(CCLabel);
-		panel.add(this.CCButton);
-		panel.add(this.CCBitField);
-		
 		JButton RUN = new JButton("RUN");
+
+		/*
+		 * Set up bounds on addRun
+		 */
+		RUN.setBounds(856, 79, 120, 72);
+
+		/*
+		 * ActionListeners for the Buttons
+		 */
 		RUN.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//need to input instruction
@@ -214,236 +224,390 @@ public class Frame extends JFrame {
 				
 			}
 		});
-		RUN.setBounds(856, 79, 120, 72);
+
+		/*
+		 * Add to JFrame
+		 */
+		
 		panel.add(RUN);
 	}
 
-	private void resetMachineState() {
-		this.GPR0BitField.setText("0".repeat(16));
-		this.GPR1BitField.setText("0".repeat(16));
-		this.GPR2BitField.setText("0".repeat(16));
-		this.GPR3BitField.setText("0".repeat(16));
-		this.IX1BitField.setText("0".repeat(16));
-		this.IX2BitField.setText("0".repeat(16));
-		this.IX3BitField.setText("0".repeat(16));
-		this.PCBitField.setText("0".repeat(12));
-		this.MARBitField.setText("0".repeat(12));
-		//this.setRegisterValue(this.MARBitField, this.memory.getValue(this.MARBitField.getText()));
-		this.MBRBitField.setText("0".repeat(16));
-		this.IRBitField.setText("0".repeat(16));
-		this.MFRBitField.setText("0".repeat(4));
-		this.switchValue = "0".repeat(16);
-		for (JToggleButton jToggleButton : this.switches) {
-			jToggleButton.setSelected(false);
-		}
+	private void addCC(JPanel panel) {
+		/*
+		 * Initalizing the UI elements for CC
+		 */
+		JLabel CCLabel = new JLabel("CC");
+		JButton CCButton = new JButton("Load");
+
+
+		/* 
+		 * Setting up textFields for CC
+		 */
+
+		CCBitField = new JTextField(4);
+		CCBitField.setEditable(false);
+		/*
+		 * Set up bounds on CC
+		 */
+		CCLabel.setBounds(   512, 196, 48, textFieldHeight);
+		CCButton.setBounds(  558, 196, 80, 23);
+		this.CCBitField.setBounds(640, 197, textFieldWidth, textFieldHeight);
+
+		/*
+		 * ActionListeners for the Buttons
+		 */
+
+		CCButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+
+		/*
+		 * Add to JFrame
+		 */
+		panel.add(CCLabel);
+		panel.add(CCButton);
+		panel.add(this.CCBitField);
+		
 	}
 
-	private void addGeneralPurposeRegisters() {
+	private void addGeneralPurposeRegisters(JPanel panel) {
+
+		/* 
+		 * Initalizing the UI elements for GPR
+		 */
 		JLabel GPR0Label = new JLabel("GPR 0");
+		JLabel GPR1Label = new JLabel("GPR 1");
+		JLabel GPR2Label = new JLabel("GPR 2");
+		JLabel GPR3Label = new JLabel("GPR 3");
+		JButton GPR0Button = new JButton("Load");
+		JButton GPR1Button = new JButton("Load");;
+		JButton GPR2Button = new JButton("Load");;
+		JButton GPR3Button = new JButton("Load");;
+
+
+		/*
+		 * Setting up textFields for GPR
+		 */
 
 		this.GPR0BitField = new JTextField(16);
 		this.GPR0BitField.setName("gpr0");
 		this.GPR0BitField.setEditable(false);
-		this.GPR0Button = new JButton("Load");
-		GPR0Button.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				Frame.this.loadSwitchValue(Frame.this.GPR0BitField);
-			}
-		});
 
-		GPR0Label.setBounds(   (int) (screenInc*1), 11, 48, textFieldHeight);
-		GPR0Button.setBounds(  (int) (screenInc*1.5), 11, 62, textFieldHeight);
-		GPR0BitField.setBounds((int) (screenInc*2), 11, textFieldWidth, textFieldHeight);
-		panel.add(GPR0Label);
-		panel.add(GPR0Button);
-		panel.add(GPR0BitField);
-
-		JLabel GPR1Label = new JLabel("GPR 1");
 		this.GPR1BitField = new JTextField(16);
 		this.GPR1BitField.setName("gpr1");
 		this.GPR1BitField.setEditable(false);
-		this.GPR1Button = new JButton("Load");
-		GPR1Button.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		GPR1Label.setBounds(   (int) (screenInc*1  ), 45, 48, textFieldHeight);
-		GPR1Button.setBounds(  (int) (screenInc*1.5), 45, 62, textFieldHeight);
-		GPR1BitField.setBounds((int) (screenInc*2  ), 45, textFieldWidth, textFieldHeight);
-		panel.add(GPR1Label);
-		panel.add(GPR1Button);
-		panel.add(GPR1BitField);
 
-		JLabel GPR2Label = new JLabel("GPR2");
 		this.GPR2BitField = new JTextField(16);
 		this.GPR2BitField.setName("gpr2");
 		this.GPR2BitField.setEditable(false);
-		this.GPR2Button = new JButton("Load");
-		GPR2Button.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		GPR2Label.setBounds(   (int) (screenInc*1  ), 79, 48, textFieldHeight);
-		GPR2Button.setBounds(  (int) (screenInc*1.5), 79, 62, textFieldHeight);
-		GPR2BitField.setBounds((int) (screenInc*2  ), 79, textFieldWidth, textFieldHeight);
-		panel.add(GPR2Label);
-		panel.add(GPR2Button);
-		panel.add(GPR2BitField);
-
-
-		JLabel GPR3Label = new JLabel("GPR3");
+		
 		this.GPR3BitField = new JTextField(16);
 		this.GPR3BitField.setName("gpr3");
 		this.GPR3BitField.setEditable(false);
-		this.GPR3Button = new JButton("Load");
-		JButton GPR3Button = new JButton("Load");
-		GPR3Button.addActionListener(new ActionListener() {
+
+		/*
+		 * Set up bounds on GPR  
+		 */
+
+		GPR0Label.setBounds(   (int) (screenInc*1), 11, 48, textFieldHeight);
+		GPR0Button.setBounds(  174, 11, 80, 23);
+		GPR0BitField.setBounds((int) (screenInc*2), 11, textFieldWidth, textFieldHeight);
+		GPR1Label.setBounds(   (int) (screenInc*1  ), 45, 48, textFieldHeight);
+		GPR1Button.setBounds(  174, 45, 80, 23);
+		GPR1BitField.setBounds((int) (screenInc*2  ), 45, textFieldWidth, textFieldHeight);
+		GPR2Label.setBounds(   (int) (screenInc*1  ), 79, 48, textFieldHeight);
+		GPR2Button.setBounds(  174, 79, 80, 23);
+		GPR2BitField.setBounds((int) (screenInc*2  ), 79, textFieldWidth, textFieldHeight);
+		GPR3Label.setBounds(   (int) (screenInc*1  ), 113, 48, textFieldHeight);
+		GPR3Button.setBounds(  174, 113, 80, 23);
+		GPR3BitField.setBounds((int) (screenInc*2  ), 113, textFieldWidth, textFieldHeight);
+		
+		/* 
+		 * ActionListeners for the Buttons 
+		 */
+		GPR0Button.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
+				GPRController(Frame.this.GPR0BitField);
 			}
 		});
-		GPR3Label.setBounds(   (int) (screenInc*1  ), 113, 48, textFieldHeight);
-		this.GPR3Button.setBounds(  (int) (screenInc*1.5), 113, 62, textFieldHeight);
-		GPR3BitField.setBounds((int) (screenInc*2  ), 113, textFieldWidth, textFieldHeight);
+
+		GPR1Button.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				GPRController(Frame.this.GPR1BitField);
+			}
+		});
+
+		GPR2Button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				GPRController(Frame.this.GPR2BitField);
+			}
+		});
+
+		GPR3Button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				GPRController(Frame.this.GPR3BitField);
+			}
+		});
+
+		/* 
+		 *  Add to JFrame
+		 */
+		//  Buttons
+		panel.add(GPR0Button);
+		panel.add(GPR1Button);
+		panel.add(GPR2Button);
+		panel.add(GPR3Button);
+
+		//Labels
+
+		panel.add(GPR0Label);
+		panel.add(GPR1Label);
+		panel.add(GPR2Label);
 		panel.add(GPR3Label);
-		panel.add(this.GPR3Button);
+
+		//Fields
+		panel.add(GPR0BitField);
+		panel.add(GPR1BitField);
+		panel.add(GPR2BitField);
 		panel.add(this.GPR3BitField);
 
 	}
+	
+	public void GPRController(JTextField textField){
+		/* 
+		* The command that all GPR run when the button load button is pressed
+		*/
+		Frame.this.loadSwitchValue(textField);
+	}
 
-	private void addIndexRegisters() {
+	private void addIndexRegisters(JPanel panel) {
+		/* 
+		 * Initalizing the UI elements for IX
+		 */
 		JLabel IX1Label = new JLabel("IX1");
+		JLabel IX2Label = new JLabel("IX2");
+		JLabel IX3Label = new JLabel("IX3");
 		JButton X1Button = new JButton("Load");
+		JButton IX1Button = new JButton("Load");;
+		JButton IX2Button = new JButton("Load");;
+		JButton IX3Button = new JButton("Load");;
+
+		/*
+		 * Setting up textFields for IX
+		 */
+
+		this.IX1BitField = new JTextField(16);
+		this.IX1BitField.setName("ix1");
+		this.IX1BitField.setEditable(false);
+
+		this.IX2BitField = new JTextField(16);
+		this.IX2BitField.setName("ix2");
+		this.IX2BitField.setEditable(false);
+
+		this.IX3BitField = new JTextField(16);
+		this.IX3BitField.setName("ix3");
+		this.IX3BitField.setEditable(false);
+
+
+		/*
+		 * Set up bounds on IX
+		 */
+
+		IX1Label.setBounds(   (int) (screenInc*4  ), 11, 48, textFieldHeight);
+		IX1Button.setBounds(  558, 11, 80, 23);
+		IX1BitField.setBounds((int) (screenInc*5  ), 11, textFieldWidth, textFieldHeight);
+
+		IX2Label.setBounds(   (int) (screenInc*4  ), 45, 48, textFieldHeight);
+		IX2Button.setBounds(  558, 45, 80, 23);
+		IX2BitField.setBounds((int) (screenInc*5  ), 45, textFieldWidth, textFieldHeight);
+
+		IX3Label.setBounds(   (int) (screenInc*4  ), 79, 48, textFieldHeight);
+		IX3Button.setBounds(  558, 79, 80, 23);
+		IX3BitField.setBounds((int) (screenInc*5  ), 79, textFieldWidth, textFieldHeight);
+
+		/* 
+		 * ActionListeners for the Buttons
+		 */
 
 		X1Button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
 
-		this.IX1BitField = new JTextField(16);
-		this.IX1BitField.setName("ix1");
-		this.IX1BitField.setEditable(false);
-		this.IX1Button = new JButton("Load");
-		IX1Label.setBounds(   (int) (screenInc*4  ), 11, 48, textFieldHeight);
-		IX1Button.setBounds(  (int) (screenInc*4.5), 11, 62, textFieldHeight);
-		IX1BitField.setBounds((int) (screenInc*5  ), 11, textFieldWidth, textFieldHeight);
-		panel.add(IX1Label);
-		panel.add(IX1Button);
-		panel.add(IX1BitField);
-
-
-		JLabel IX2Label = new JLabel("IX2");
-		this.IX2BitField = new JTextField(16);
-		this.IX2BitField.setName("ix2");
-		this.IX2BitField.setEditable(false);
-		this.IX2Button = new JButton("Load");
-
 		IX2Button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		IX2Label.setBounds(   (int) (screenInc*4  ), 45, 48, textFieldHeight);
-		IX2Button.setBounds(  (int) (screenInc*4.5), 45, 62, textFieldHeight);
-		IX2BitField.setBounds((int) (screenInc*5  ), 45, textFieldWidth, textFieldHeight);
-		panel.add(IX2Label);
-		panel.add(IX2Button);
-		panel.add(IX2BitField);
 
-		JLabel IX3Label = new JLabel("IX3");
-		this.IX3BitField = new JTextField(16);
-		this.IX3BitField.setName("ix3");
-		this.IX3BitField.setEditable(false);
-		this.IX3Button = new JButton("Load");
-
+		
 		IX3Button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		IX3Label.setBounds(   (int) (screenInc*4  ), 79, 48, textFieldHeight);
-		IX3Button.setBounds(  (int) (screenInc*4.5), 79, 62, textFieldHeight);
-		IX3BitField.setBounds((int) (screenInc*5  ), 79, textFieldWidth, textFieldHeight);
+
+		/* 
+		 * Add to JFrame
+		 */
+
+		panel.add(IX1Label);
+		panel.add(IX1Button);
+		panel.add(IX1BitField);
+
+		panel.add(IX2Label);
+		panel.add(IX2Button);
+		panel.add(IX2BitField);
+
+		
 		panel.add(IX3Label);
 		panel.add(IX3Button);
 		panel.add(IX3BitField);
 
 	}
 
-	private void addIR() {
+	private void addIR(JPanel panel) {
+		/*
+		 * Initalizing the UI elements for IR
+		 */
 		JLabel IRLabel = new JLabel("IR");
+		JButton IRButton = new JButton("Load");
+
+		/*
+		 * Setting up textFields for IR
+		 */
+
 		this.IRBitField = new JTextField(16);
 		this.IRBitField.setName("ir");
 		this.IRBitField.setEditable(false);
-		JButton IRButton = new JButton("Load");
+		/*
+		 * Set up bounds on IR
+		 */
+		IRLabel.setBounds(   (int) (screenInc*1  ), 264, 48, textFieldHeight);
+		IRButton.setBounds(  174, 264, 80, 23);
+		IRBitField.setBounds((int) (screenInc*2  ), 264, textFieldWidth, textFieldHeight);
+
+		/*
+		 * ActionListeners for the Buttons
+		 */
+
 		IRButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		IRLabel.setBounds(   (int) (screenInc*1  ), 264, 48, textFieldHeight);
-		IRButton.setBounds(  (int) (screenInc*1.5), 264, 62, textFieldHeight);
-		IRBitField.setBounds((int) (screenInc*2  ), 264, textFieldWidth, textFieldHeight);
+
+		/*
+		 * Add to JFrame
+		 */
 		panel.add(IRLabel);
 		panel.add(IRButton);
 		panel.add(IRBitField);
 	}
 
-	private void addPC() {
+	private void addPC(JPanel panel) {
+		/*
+		 * Initalizing the UI elements for PC
+		 */
 		JLabel PCLabel = new JLabel("PC");
+		JButton PCButton = new JButton("Load");;
+
+		/* 
+		* Setting up textFields for PC
+		*/		
+
 		this.PCBitField = new JTextField(12);
 		this.PCBitField.setName("pc");
 		this.PCBitField.setEditable(false);
-		this.PCButton = new JButton("Load");
+
+		/*
+		 * Set up bounds for PC
+		 */
+
+		PCLabel.setBounds(   (int) (screenInc*1  ), 162, 48, textFieldHeight);
+		PCButton.setBounds(  174, 162, 80, 23);
+		PCBitField.setBounds((int) (screenInc*2  ), 162, textFieldWidth, textFieldHeight);
+
+		/*
+		 * ActionListeners for the Buttons
+		 */
+
 		PCButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		PCLabel.setBounds(   (int) (screenInc*1  ), 162, 48, textFieldHeight);
-		PCButton.setBounds(  (int) (screenInc*1.5), 162, 62, textFieldHeight);
-		PCBitField.setBounds((int) (screenInc*2  ), 162, textFieldWidth, textFieldHeight);
+
+		/*
+		 * Add to JFrame
+		 */
 		panel.add(PCLabel);
 		panel.add(PCButton);
 		panel.add(PCBitField);
 	}
 
-	private void addMAR() {
+	private void addMAR(JPanel panel) {
+		/*
+		 * Initalizing the UI elements for MAR
+		 */
 		JLabel MARLabel = new JLabel("MAR");
 		this.MARBitField = new JTextField(12);
+		JButton MARButton = new JButton("Load");
+
+		/* 
+		 * Setting up textFields for MAR
+		 */
 		this.MARBitField.setName("mar");
 		this.MARBitField.setEditable(false);
-		this.MARButton = new JButton("Load");
-		JLabel MemoryAtMARLabel = new JLabel("Memory at MAR");
 
-		this.MARMemory = new JTextField(16);
-		MARMemory.setText("1010");
-		this.MARMemory.setEditable(false);
+		/*
+		 * Set up bounds on MAR
+		 */
 
+		MARLabel.setBounds(   (int) (screenInc*1), 196, 48, textFieldHeight);
+		MARButton.setBounds(  174, 196, 80, 23);
+		MARBitField.setBounds((int) (screenInc*2), 196, textFieldWidth, textFieldHeight);
 
+		/*
+		 * ActionListeners for the Buttons
+		 */
 		MARButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Frame.this.loadSwitchValue(Frame.this.MARBitField);
-
-				
+				Frame.this.loadSwitchValue(Frame.this.MARBitField);				
 			}
 		});
 
-		MemoryAtMARLabel.setBounds((int) (screenInc*4), 197, 120, textFieldHeight);
-		MARMemory.setBounds((int) (screenInc*5), 197, textFieldWidth, textFieldHeight);
-		panel.add(MemoryAtMARLabel);
-		panel.add(MARMemory);
-
-		MARLabel.setBounds(   (int) (screenInc*1), 196, 48, textFieldHeight);
-		MARButton.setBounds(  (int) (screenInc*1.5), 196, 62, textFieldHeight);
-		MARBitField.setBounds((int) (screenInc*2), 196, textFieldWidth, textFieldHeight);
+		/*
+		 * Add to JFrame
+		 */
 		panel.add(MARLabel);
 		panel.add(MARButton);
 		panel.add(MARBitField);
 	}
 
-	private void addMBR() {
+	private void addMBR(JPanel panel) {
+		/*
+		 * Initalizing the UI elements for MBR
+		 */
 		JLabel MBRLabel = new JLabel("MBR");
 		this.MBRBitField = new JTextField(16);
+		this.MBRButton = new JButton("Load");
+
+		/* 
+		 * Setting up textFields for MBR
+		 */
+
 		this.MBRBitField.setName("mbr");
 		this.MBRBitField.setEditable(false);
-		this.MBRButton = new JButton("Load");
+
+		/*
+		 * Set up bounds on MBR
+		 */
+		MBRLabel.setBounds((int) (screenInc*1), 230, 48, textFieldHeight);
+		MBRButton.setBounds(174, 230, 80, 23);
+		MBRBitField.setBounds((int) (screenInc*2), 230, textFieldWidth, textFieldHeight);
+		/*
+		 * ActionListeners for the Buttons
+		 */
 
 		MBRButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -452,50 +616,82 @@ public class Frame extends JFrame {
 			}
 		});
 
-		MBRLabel.setBounds((int) (screenInc*1), 230, 48, textFieldHeight);
-		MBRButton.setBounds((int) (screenInc*1.5), 230, 62, textFieldHeight);
-		MBRBitField.setBounds((int) (screenInc*2), 230, textFieldWidth, textFieldHeight);
+		/*
+		 * Add to JFrame
+		 */
 		panel.add(MBRLabel);
 		panel.add(MBRButton);
 		panel.add(MBRBitField);
 	}
 
-
-
-	private void addMFR() {
+	private void addMFR(JPanel panel) {
+		/*
+		 * Initalizing the UI elements for MFR
+		 */
 		JLabel MFRLabel = new JLabel("MFR");
 		this.MFRBitField = new JTextField(16);
+
+		/* 
+		 * Setting up textFields for MFR
+		 */
+
 		this.MFRBitField.setName("mfr");
 		this.MFRBitField.setEditable(false);
-		MFRLabel.setBounds((int) (screenInc*4), 230, 120, textFieldHeight);
-		MFRBitField.setBounds((int) (screenInc*5), 230, textFieldWidth, textFieldHeight);
+		/*
+		 * Set up bounds on MFR
+		 */
+
+		MFRLabel.setBounds(512, 162, 120, textFieldHeight);
+		MFRBitField.setBounds(640, 162, textFieldWidth, textFieldHeight);
+		/*
+		 * Add to JFrame
+		 */
+
+
 		panel.add(MFRLabel);
 		panel.add(MFRBitField);
 	}
 
-	private void addIPL() {
+	private void addIPL(JPanel panel) {
+		/*
+		 * Initalizing the UI elements for IPL
+		 */
 		this.IPLButton = new JButton("IPL");
+
+
+		/*
+		 * Set up bounds on IPL
+		 */
 		this.IPLButton.setBounds(screenInc*2, 300, 120, textFieldHeight*2);
+
+
+		/*
+		 * Add to JFrame
+		 */
 		panel.add(IPLButton);
 	}
 
-	private void addStoreAndLoad() {
-		//Store Button
+	private void addStoreAndLoad(JPanel panel) {
+		/*
+		 * Initalizing the UI elements for addStoreAndLoad
+		 */
 		JButton storeButton = new JButton("Store");
+		JButton loadButton = new JButton("Load");
+		JButton nextStepButton = new JButton("Next Step");
+		JButton resetButton = new JButton("Reset");
+
+		/*
+		 * ActionListeners for the Buttons
+		 */
 		storeButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int Value=Integer.parseInt(MBRBitField.getText(),2);
 				int Index=Integer.parseInt(MARBitField.getText(),2);
 	            memory.insertX(Value, Index);
 
-				//Put code here
 			}
 		});
 
-		commandPanel.add(storeButton);
-
-		//Load Button
-		JButton loadButton = new JButton("Load");
 		loadButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int index_marmemory=Integer.parseInt(MARBitField.getText(),2);
@@ -507,34 +703,72 @@ public class Frame extends JFrame {
 		            int n6 = MBRBitField.getText().length() - string.length();
 		            String string2 = "0".repeat(n6) + string;
 		            MBRBitField.setText(string2);
-				
-				
-				
-				
-				
+
 
 				memory.getValue(index_marmemory);
-				//Put code here
 			}
 		});
-		commandPanel.add(loadButton);
-		JButton nextStepButton = new JButton("Next Step");
+
+
 		nextStepButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//Put code here
 			}
 		});
-		commandPanel.add(nextStepButton);
+
+		resetButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				resetMachineState();
+			}
+		});
+		/*
+		 * Add to JFrame
+		 */
+		panel.add(storeButton);
+		panel.add(loadButton);
+		panel.add(nextStepButton);
+		panel.add(nextStepButton);
+		panel.add(resetButton);
+	}
+
+	private void resetMachineState() {
+		/*
+		 * Resets machine
+		 */
+		this.GPR0BitField.setText("0".repeat(16));
+		this.GPR1BitField.setText("0".repeat(16));
+		this.GPR2BitField.setText("0".repeat(16));
+		this.GPR3BitField.setText("0".repeat(16));
+		this.IX1BitField.setText("0".repeat(16));
+		this.IX2BitField.setText("0".repeat(16));
+		this.IX3BitField.setText("0".repeat(16));
+		this.PCBitField.setText("0".repeat(12));
+		this.MARBitField.setText("0".repeat(12));
+		this.MBRBitField.setText("0".repeat(16));
+		this.IRBitField.setText("0".repeat(16));
+		this.MFRBitField.setText("0".repeat(4));
+		this.switchValue = "0".repeat(16);
+		for (JToggleButton jToggleButton : this.switches) {
+			jToggleButton.setSelected(false);
+		}
 	}
 
 	public void setRegisterValue(JTextField jTextField, int n) {
+		/*
+		 * Check for valid length
+		 */
 		if (jTextField.getText().length() <= 0) {
 			System.out.println("Error setting register value: invalid length");
 			return;
 		}
+		/*
+		 * Initalizing Values
+		 */
 		String string = Integer.toBinaryString(n);
 		int n2 = jTextField.getText().length() - string.length();
 		String string2 = "0".repeat(n2) + string;
+
+		//Set JTextField
 		jTextField.setText(string2);
 	}
 
@@ -563,7 +797,5 @@ public class Frame extends JFrame {
 			this.switches[i] = jToggleButton;
 			bitPanel.add(jToggleButton);
 		}
-
-
 	}
 }
