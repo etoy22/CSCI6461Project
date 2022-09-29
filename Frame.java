@@ -65,33 +65,28 @@ public class Frame extends JFrame {
 		JPanel bitPanel = new JPanel();
 		JPanel labelBitPanel = new JPanel();
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
-
-		/*
-		 * Setup GroupLayout
-		 */
-
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.TRAILING)
 				.addGroup(gl_contentPane.createSequentialGroup()
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addComponent(labelBitPanel, GroupLayout.DEFAULT_SIZE, 1248, Short.MAX_VALUE)
-						.addComponent(bitPanel, GroupLayout.DEFAULT_SIZE, 1248, Short.MAX_VALUE)
-						.addComponent(commandPanel, GroupLayout.DEFAULT_SIZE, 1248, Short.MAX_VALUE)
-						.addComponent(processingPanel, GroupLayout.DEFAULT_SIZE, 1248, Short.MAX_VALUE))
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
+						.addComponent(labelBitPanel, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 1248, Short.MAX_VALUE)
+						.addComponent(bitPanel, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 1248, Short.MAX_VALUE)
+						.addComponent(commandPanel, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 1248, Short.MAX_VALUE)
+						.addComponent(processingPanel, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 1248, Short.MAX_VALUE))
 					.addContainerGap())
 		);
 		gl_contentPane.setVerticalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
 					.addGap(8)
-					.addComponent(bitPanel, GroupLayout.PREFERRED_SIZE, 59, GroupLayout.PREFERRED_SIZE)
+					.addComponent(bitPanel, GroupLayout.PREFERRED_SIZE, 31, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(labelBitPanel, GroupLayout.PREFERRED_SIZE, 38, GroupLayout.PREFERRED_SIZE)
+					.addComponent(labelBitPanel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(commandPanel, GroupLayout.PREFERRED_SIZE, 33, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(processingPanel, GroupLayout.DEFAULT_SIZE, 403, Short.MAX_VALUE)
-					.addGap(116))
+					.addGap(166))
 		);
 
 
@@ -110,7 +105,8 @@ public class Frame extends JFrame {
 		bitPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		commandPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		processingPanel.setLayout(null);
-		setuplabelBitPanel(contentPane);
+		setuplabelBitPanel(labelBitPanel);
+		
 
 		contentPane.setLayout(gl_contentPane);
 
@@ -137,68 +133,21 @@ public class Frame extends JFrame {
 		/*
 		 * Initalizing the UI elements for plabelBitPanel
 		 */
-		GroupLayout gl_labelBitPanel = new GroupLayout(panel);
-		JLabel opCodeLabel = new JLabel("Opcode");
-		JLabel IXLabel = new JLabel("IX");
-		JLabel RLabel = new JLabel("R");
-		JLabel ILabel = new JLabel("I");
-		JLabel addressLabel = new JLabel("Address");
+		JLabel lblNewLabel = new JLabel("|____________________Opcode____________________|______R______|______IX______|___I___|______________Address______________|");
+
 
 		/* 
 		 * Setting up labels
 		 */
-		opCodeLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		opCodeLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-
-		IXLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-		IXLabel.setHorizontalAlignment(SwingConstants.CENTER);
-
-		RLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-		RLabel.setHorizontalAlignment(SwingConstants.CENTER);
-
-		ILabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-		ILabel.setHorizontalAlignment(SwingConstants.CENTER);
-
-		addressLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		addressLabel.setAlignmentX(0.5f);
+	
+		
+		lblNewLabel.setBounds(240, 0, 798, 14);
 
 		/*
-		 * Setup GroupLayout
-		*/
-		gl_labelBitPanel.setHorizontalGroup(
-			gl_labelBitPanel.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_labelBitPanel.createSequentialGroup()
-					.addGap(84)
-					.addComponent(opCodeLabel, GroupLayout.PREFERRED_SIZE, 303, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(IXLabel, GroupLayout.PREFERRED_SIZE, 74, GroupLayout.PREFERRED_SIZE)
-					.addGap(51)
-					.addComponent(RLabel, GroupLayout.PREFERRED_SIZE, 74, GroupLayout.PREFERRED_SIZE)
-					.addGap(18)
-					.addComponent(ILabel, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(addressLabel, GroupLayout.PREFERRED_SIZE, 231, GroupLayout.PREFERRED_SIZE)
-					.addGap(333))
-		);
-		gl_labelBitPanel.setVerticalGroup(
-			gl_labelBitPanel.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_labelBitPanel.createSequentialGroup()
-					.addGap(11)
-					.addGroup(gl_labelBitPanel.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_labelBitPanel.createParallelGroup(Alignment.BASELINE)
-							.addComponent(IXLabel)
-							.addComponent(opCodeLabel))
-						.addGroup(gl_labelBitPanel.createParallelGroup(Alignment.BASELINE)
-							.addComponent(addressLabel)
-							.addComponent(ILabel)
-							.addComponent(RLabel)))
-					.addGap(13))
-		);
-
-		/*
-		 * Set the layout
+		 *  Add to bitPanel
 		 */
-		panel.setLayout(gl_labelBitPanel);
+		
+		panel.add(lblNewLabel);
 
 	}
 	
@@ -755,6 +704,7 @@ public class Frame extends JFrame {
 		panel.add(nextStepButton);
 		panel.add(resetButton);
 	}
+	
 	private void singleStep() {
         MARBitField.setText(PCBitField.getText());
         int data = memory.getValue(Integer.parseInt(PCBitField.getText(), 2));
