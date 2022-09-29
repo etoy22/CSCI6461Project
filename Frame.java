@@ -21,7 +21,6 @@ public class Frame extends JFrame {
 	private JTextField PCBitField;
 	private JTextField MARBitField;
 	private JTextField MBRBitField;
-	private JButton MBRButton;
 	private JTextField MFRBitField;
 	private JTextField CCBitField;
 	private JButton IPLButton;
@@ -436,7 +435,6 @@ public class Frame extends JFrame {
 		 * Initalizing the UI elements for IR
 		 */
 		JLabel IRLabel = new JLabel("IR");
-		JButton IRButton = new JButton("Load");
 
 		/*
 		 * Setting up textFields for IR
@@ -449,23 +447,12 @@ public class Frame extends JFrame {
 		 * Set up bounds on IR
 		 */
 		IRLabel.setBounds(   (int) (screenInc*1  ), 264, 48, textFieldHeight);
-		IRButton.setBounds(  174, 264, 80, 23);
 		IRBitField.setBounds((int) (screenInc*2  ), 264, textFieldWidth, textFieldHeight);
-
-		/*
-		 * ActionListeners for the Buttons
-		 */
-
-		IRButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
 
 		/*
 		 * Add to JFrame
 		 */
 		panel.add(IRLabel);
-		panel.add(IRButton);
 		panel.add(IRBitField);
 	}
 
@@ -554,7 +541,6 @@ public class Frame extends JFrame {
 		 */
 		JLabel MBRLabel = new JLabel("MBR");
 		this.MBRBitField = new JTextField(16);
-		this.MBRButton = new JButton("Load");
 
 		/* 
 		 * Setting up textFields for MBR
@@ -567,24 +553,13 @@ public class Frame extends JFrame {
 		 * Set up bounds on MBR
 		 */
 		MBRLabel.setBounds((int) (screenInc*1), 230, 48, textFieldHeight);
-		MBRButton.setBounds(174, 230, 80, 23);
 		MBRBitField.setBounds((int) (screenInc*2), 230, textFieldWidth, textFieldHeight);
-		/*
-		 * ActionListeners for the Buttons
-		 */
 
-		MBRButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				Frame.this.loadSwitchValue(Frame.this.MBRBitField);
-
-			}
-		});
 
 		/*
 		 * Add to JFrame
 		 */
 		panel.add(MBRLabel);
-		panel.add(MBRButton);
 		panel.add(MBRBitField);
 	}
 
