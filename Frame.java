@@ -65,6 +65,11 @@ public class Frame extends JFrame {
 		JPanel bitPanel = new JPanel();
 		JPanel labelBitPanel = new JPanel();
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
+
+		/*
+		 * Setup GroupLayout
+		 */
+
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.TRAILING)
 				.addGroup(gl_contentPane.createSequentialGroup()
