@@ -1,7 +1,10 @@
 
 public class CPU {
 
-	 private static Memory memory;
+
+
+	private static Memory memory = new Memory();
+	
 
 	static String addBinary(String a, String b)
 	    {   
@@ -63,7 +66,7 @@ public class CPU {
 		{
 			//put codes here
 		}
-		//Calculate effective address
+		//Calculate effective address, value=memory[effective_addr]
 		int IX_array[]= {1,2,3,4};
 
 		if (I.equals("0")) {
@@ -76,44 +79,52 @@ public class CPU {
 
 			}
 			else if(IX.equals("01")) {
-				String effective_addr=addBinary(Address,Integer.toBinaryString(IX_array[1])); 
-				System.out.println(Address);
-
-				System.out.println(effective_addr);
+				String first_effective_addr=addBinary(Address,Integer.toBinaryString(IX_array[1])); 
+				int effective_addr=Integer.parseInt(first_effective_addr);
+				
+			
 			}
 			else if(IX.equals("10")) {
-				String effective_addr=addBinary(Address,Integer.toBinaryString(IX_array[2])); 
-				System.out.println(effective_addr);
+				String first_effective_addr=addBinary(Address,Integer.toBinaryString(IX_array[2])); 
+				int effective_addr=Integer.parseInt(first_effective_addr);
 
 			}
 			else if(IX.equals("11")) {
-				String effective_addr=addBinary(Address,Integer.toBinaryString(IX_array[3])); 
-				System.out.println(effective_addr);
+				String first_effective_addr=addBinary(Address,Integer.toBinaryString(IX_array[3])); 
+				int effective_addr=Integer.parseInt(first_effective_addr);
 
 			}
 		}
 		if(I.equals("1")) {
 			//put codes here
-			CPU.memory=new Memory();
-			if (IX.equals("00")) {
-				
+			System.out.println(IX);
 
+			if (IX.equals("00")) {
+				int first_effective_addr=Integer.parseInt(Address,2);
+				int effective_addr=memory.getValue(first_effective_addr);
+				System.out.println(effective_addr);
 					}
 			else if(IX.equals("01")) {
+				String first_effective_addr=addBinary(Address,Integer.toBinaryString(IX_array[1])); 
+				System.out.println(first_effective_addr);
+
+				int effective_addr=memory.getValue(Integer.parseInt(first_effective_addr,2));
+				System.out.println(effective_addr);
+
+
 				
 					}
 			else if(IX.equals("10")) {
+				String first_effective_addr=addBinary(Address,Integer.toBinaryString(IX_array[2])); 
+				int effective_addr=memory.getValue(Integer.parseInt(first_effective_addr,2));
+
 					
 
 					}
 			else if(IX.equals("11")) {
-					
-
+				String first_effective_addr=addBinary(Address,Integer.toBinaryString(IX_array[3])); 
+				int effective_addr=memory.getValue(Integer.parseInt(first_effective_addr,2));
 					}
-
-			
-			
-			
 		}
 						
 						

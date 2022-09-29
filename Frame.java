@@ -92,15 +92,15 @@ public class Frame extends JFrame {
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.TRAILING)
 				.addGroup(gl_contentPane.createSequentialGroup()
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
 						.addComponent(commandPanel, GroupLayout.DEFAULT_SIZE, 1246, Short.MAX_VALUE)
 						.addComponent(panel, GroupLayout.DEFAULT_SIZE, 1246, Short.MAX_VALUE)
-						.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
-							.addGap(46)
-							.addComponent(labelBitPanel, GroupLayout.DEFAULT_SIZE, 1246, Short.MAX_VALUE))
 						.addGroup(gl_contentPane.createSequentialGroup()
+							.addGap(46)
+							.addComponent(labelBitPanel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+						.addGroup(Alignment.LEADING, gl_contentPane.createSequentialGroup()
 							.addContainerGap()
-							.addComponent(bitPanel, GroupLayout.PREFERRED_SIZE, 980, GroupLayout.PREFERRED_SIZE)))
+							.addComponent(bitPanel, GroupLayout.PREFERRED_SIZE, 1042, GroupLayout.PREFERRED_SIZE)))
 					.addContainerGap())
 		);
 		gl_contentPane.setVerticalGroup(
@@ -163,11 +163,11 @@ public class Frame extends JFrame {
 					.addComponent(opCodeLabel, GroupLayout.PREFERRED_SIZE, 303, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(IXLabel, GroupLayout.PREFERRED_SIZE, 74, GroupLayout.PREFERRED_SIZE)
-					.addGap(18)
+					.addGap(51)
 					.addComponent(RLabel, GroupLayout.PREFERRED_SIZE, 74, GroupLayout.PREFERRED_SIZE)
 					.addGap(18)
 					.addComponent(ILabel, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
-					.addGap(27)
+					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(addressLabel, GroupLayout.PREFERRED_SIZE, 231, GroupLayout.PREFERRED_SIZE)
 					.addGap(333))
 		);
@@ -179,10 +179,10 @@ public class Frame extends JFrame {
 						.addGroup(gl_labelBitPanel.createParallelGroup(Alignment.BASELINE)
 							.addComponent(IXLabel)
 							.addComponent(opCodeLabel))
-						.addComponent(RLabel)
 						.addGroup(gl_labelBitPanel.createParallelGroup(Alignment.BASELINE)
+							.addComponent(addressLabel)
 							.addComponent(ILabel)
-							.addComponent(addressLabel)))
+							.addComponent(RLabel)))
 					.addGap(13))
 		);
 		labelBitPanel.setLayout(gl_labelBitPanel);
@@ -210,7 +210,7 @@ public class Frame extends JFrame {
 		RUN.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//need to input instruction
-			CPU.instruction("0000000000101110");
+			CPU.instruction("0000000100101110");
 				
 			}
 		});
@@ -499,6 +499,7 @@ public class Frame extends JFrame {
 		loadButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int index_marmemory=Integer.parseInt(MARBitField.getText(),2);
+				System.out.println(index_marmemory);
 				
 				
 				 int n5 = memory.getValue(index_marmemory);
