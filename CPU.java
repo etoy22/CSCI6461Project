@@ -126,43 +126,12 @@ public class CPU {
 				int effective_addr=memory.getValue(Integer.parseInt(first_effective_addr,2));
 					}
 		}
-						
-						
-						
-						
-						
-						
-						
-						
-					
-		
-		
-		
-		
-	
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+			
 	}
 
 	private static int toBinaryString(int i) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
 }

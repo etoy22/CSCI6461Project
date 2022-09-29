@@ -5,6 +5,8 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.*;
+import java.util.concurrent.TimeUnit;
 
 public class Frame extends JFrame {
 
@@ -220,7 +222,22 @@ public class Frame extends JFrame {
 		RUN.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//need to input instruction
-			CPU.instruction("0000000100101110");
+                boolean run = true;
+			    while(run) {
+                    singleStep();
+                    if(Integer.parseInt(PCBitField.getText(), 2) >= memory.memory.length) {
+                        PCBitField.setText("0".repeat(PCBitField.getColumns()));
+                        run = false;
+                        refresh();
+                    }
+                    
+                    try {
+                        TimeUnit.SECONDS.sleep(1);
+                    } catch (InterruptedException e1) {
+                        // TODO Auto-generated catch block
+                        e1.printStackTrace();
+                    }
+                }
 				
 			}
 		});
@@ -666,9 +683,19 @@ public class Frame extends JFrame {
 
 
 		/*
+		 * Add ActionListener
+		 */
+
+        this.IPLButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Frame.this.loadBootProgram();
+			}
+		});
+		/*
 		 * Add to JFrame
 		 */
 		panel.add(IPLButton);
+
 	}
 
 	private void addStoreAndLoad(JPanel panel) {
@@ -712,7 +739,7 @@ public class Frame extends JFrame {
 
 		nextStepButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//Put code here
+				singleStep();
 			}
 		});
 
@@ -779,6 +806,28 @@ public class Frame extends JFrame {
 		String string = this.switchValue.substring(this.switchValue.length() - jTextField.getText().length());
 		jTextField.setText(string);
 		System.out.println(jTextField.getName() + " is set to: " + string);
+	}
+
+    private void loadBootProgram() {
+		try {
+			InputStream instream = getClass().getResourceAsStream("boot.txt");
+			if (instream == null) {
+                System.out.println("Unable to get File boot.txt");
+                return;
+			}
+			BufferedReader br = new BufferedReader(new InputStreamReader(instream));
+			String line;
+
+			while ( (line = br.readLine()) != null) {
+				String[] instr = line.split("\\s+");
+				int index = Integer.parseInt(instr[0],16) + 8;
+				int new_value = Integer.parseInt(instr[1],16);
+				System.out.println(new_value + " inserted into memory location " + index);
+				memory.insertX(new_value, index);
+			}
+		} catch (Exception e) {
+			System.out.println("Unable to load boot program :: " + e.getMessage());
+		}
 	}
 
 	private void addSwitches(JPanel bitPanel) {
