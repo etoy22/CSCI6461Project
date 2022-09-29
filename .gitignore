@@ -5,6 +5,7 @@
 /Frame$13.class
 /Frame$14.class
 /Frame$15.class
+/Frame$16.class
 /Frame$2.class
 /Frame$3.class
 /Frame$4.class
@@ -14,5 +15,6 @@
 /Frame$8.class
 /Frame$9.class
 /Frame.class
-/Frame$16.class
-/memory.class
+/Memory.class
+/Frame$17.class
+/CPU.class
