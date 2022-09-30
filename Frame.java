@@ -541,6 +541,7 @@ public class Frame extends JFrame {
 		 */
 		JLabel MBRLabel = new JLabel("MBR");
 		this.MBRBitField = new JTextField(16);
+		JButton MBRButton = new JButton("Load");
 
 		/* 
 		 * Setting up textFields for MBR
@@ -553,13 +554,24 @@ public class Frame extends JFrame {
 		 * Set up bounds on MBR
 		 */
 		MBRLabel.setBounds((int) (screenInc*1), 230, 48, textFieldHeight);
+		MBRButton.setBounds(174, 230, 80, 23);
 		MBRBitField.setBounds((int) (screenInc*2), 230, textFieldWidth, textFieldHeight);
+		/*
+		 * ActionListeners for the Buttons
+		 */
 
+		MBRButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Frame.this.loadSwitchValue(Frame.this.MBRBitField);
+
+			}
+		});
 
 		/*
 		 * Add to JFrame
 		 */
 		panel.add(MBRLabel);
+		panel.add(MBRButton);
 		panel.add(MBRBitField);
 	}
 
