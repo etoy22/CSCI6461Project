@@ -702,14 +702,29 @@ public class Frame extends JFrame {
 	}
 	
 	private void singleStep() {
+		/*
+		 * Variable for Single step
+		 */
+		int data;
+		String binString;
+		String result;
+		String format; //Used to format the result
+		
+		/*
+		 * Actions needed to preform a singleStep
+		 */
+
         MARBitField.setText(PCBitField.getText());
-        int data = memory.getValue(Integer.parseInt(PCBitField.getText(), 2));
-        String binString = Integer.toBinaryString(data);
+        data = memory.getValue(Integer.parseInt(PCBitField.getText(), 2));
+        binString = Integer.toBinaryString(data);
+
         binString = binString.length() == MBRBitField.getColumns() ? binString : "0".repeat(MBRBitField.getColumns()-binString.length()) + binString;
         MBRBitField.setText(binString);
         IRBitField.setText(MBRBitField.getText());
         CPU.instruction(IRBitField.getText());
-        PCBitField.setText(Integer.toBinaryString(Integer.parseInt(PCBitField.getText(), 2)+1));
+		result = Integer.toBinaryString(Integer.parseInt(PCBitField.getText(), 2)+1);
+		format = ("000000000000" + result).substring(result.length());
+        PCBitField.setText(format);
         refresh();
     }
 
