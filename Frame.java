@@ -353,7 +353,6 @@ public class Frame extends JFrame {
 		JLabel IX1Label = new JLabel("IX1");
 		JLabel IX2Label = new JLabel("IX2");
 		JLabel IX3Label = new JLabel("IX3");
-		JButton X1Button = new JButton("Load");
 		JButton IX1Button = new JButton("Load");;
 		JButton IX2Button = new JButton("Load");;
 		JButton IX3Button = new JButton("Load");;
@@ -395,19 +394,34 @@ public class Frame extends JFrame {
 		 * ActionListeners for the Buttons
 		 */
 
-		X1Button.addActionListener(new ActionListener() {
+		IX1Button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				Frame.this.loadSwitchValue(Frame.this.IX1BitField);
+				System.out.println(IX1BitField.getText());
+				CPU.change_IX(1,Integer.parseInt(IX1BitField.getText()));
+				
+				
+				
+
 			}
 		});
 
 		IX2Button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				Frame.this.loadSwitchValue(Frame.this.IX2BitField);	
+				CPU.change_IX(2,Integer.parseInt(IX1BitField.getText()));
+
+
 			}
 		});
 
 		
 		IX3Button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				Frame.this.loadSwitchValue(Frame.this.IX3BitField);
+				CPU.change_IX(3,Integer.parseInt(IX1BitField.getText()));
+
+
 			}
 		});
 
