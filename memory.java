@@ -14,11 +14,9 @@ public class Memory {
 
     }
 
-    
-    
-    
     public int getValue(int index) {
-    
+        memory[16] = 2;
+        memory[14] = 4;
 
         System.out.println("loading value " + this.memory[index]);
 

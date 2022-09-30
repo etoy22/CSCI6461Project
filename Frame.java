@@ -399,10 +399,6 @@ public class Frame extends JFrame {
 				Frame.this.loadSwitchValue(Frame.this.IX1BitField);
 				System.out.println(IX1BitField.getText());
 				CPU.change_IX(1,Integer.parseInt(IX1BitField.getText()));
-				
-				
-				
-
 			}
 		});
 
@@ -410,8 +406,6 @@ public class Frame extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				Frame.this.loadSwitchValue(Frame.this.IX2BitField);	
 				CPU.change_IX(2,Integer.parseInt(IX1BitField.getText()));
-
-
 			}
 		});
 
@@ -499,6 +493,7 @@ public class Frame extends JFrame {
 
 		PCButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				Frame.this.loadSwitchValue(Frame.this.PCBitField);	
 			}
 		});
 
