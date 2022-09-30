@@ -2,7 +2,18 @@
 public class CPU {
 
 
+	private static int IX_array[]= {1,2,3,4};
 
+	
+	
+	public static void change_IX(int index,int value){
+		IX_array[index]=value;
+		System.out.println("IX_array"+IX_array[index]);
+	
+	
+	
+	}
+	
 	private static Memory memory = new Memory();
 	
 
@@ -67,7 +78,6 @@ public class CPU {
 			//put codes here
 		}
 		//Calculate effective address, value=memory[effective_addr]
-		int IX_array[]= {1,2,3,4};
 
 		if (I.equals("0")) {
 			System.out.println(IX);
