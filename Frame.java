@@ -207,7 +207,7 @@ public class Frame extends JFrame {
 		 * Setting up textFields for CC
 		 */
 
-		CCBitField = new JTextField(4);
+		CCBitField = new JTextField("0000",4);
 		CCBitField.setEditable(false);
 		/*
 		 * Set up bounds on CC
@@ -222,6 +222,7 @@ public class Frame extends JFrame {
 
 		CCButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				Frame.this.loadSwitchValue(Frame.this.CCBitField);	
 			}
 		});
 
@@ -708,7 +709,7 @@ public class Frame extends JFrame {
 		int data;
 		String binString;
 		String result;
-		String format; //Used to format the result
+		String format; 
 		
 		/*
 		 * Actions needed to preform a singleStep
